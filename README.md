@@ -84,12 +84,12 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 4. **Add required dependencies** to your `pubspec.yaml`:
    ```yaml
    dependencies:
-     flutter_bloc: ^8.1.3
-     get_it: ^7.6.4
-     equatable: ^2.0.5
+     flutter_bloc: ^9.1.1 
+     get_it: ^8.2.0
+     equatable: ^2.0.7
      dartz: ^0.10.1
-     dio: ^5.3.2
-     internet_connection_checker: ^1.0.0+1
+     dio: ^5.9.0
+     internet_connection_checker: ^3.0.1
    ```
 
 5. **Run tests**:
