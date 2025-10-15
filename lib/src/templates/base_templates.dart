@@ -80,11 +80,13 @@ class NoParams extends Equatable {
 }
 ''';
 
-  String get networkInfoTemplate => '''
+  String networkInfoTemplate(bool useInjectable) =>
+      '''
 abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
+${useInjectable ? '@singleton' : ''}
 class NetworkInfoImpl implements NetworkInfo {
   @override
   Future<bool> get isConnected async {
@@ -97,7 +99,7 @@ class NetworkInfoImpl implements NetworkInfo {
 
   String get getItContainerTemplate => '''
 import 'package:get_it/get_it.dart';
-import 'core/network/network_info.dart';
+import '../core/network/network_info.dart';
 
 final sl = GetIt.instance;
 
@@ -112,6 +114,7 @@ Future<void> init() async {
   String get injectableContainerTemplate => '''
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import '../core/network/network_info.dart';
 import 'injection_container.config.dart';
 
 final sl = GetIt.instance;
@@ -124,10 +127,11 @@ final sl = GetIt.instance;
 void configureDependencies() => \$initGetIt(sl);
 ''';
 
-  String remoteDataSourceTemplate(String featureName, String className) => '''
+  String remoteDataSourceTemplate(String featureName, String className) =>
+      '''
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../../../../core/error/exceptions.dart';
+import 'package:${config.packageName}/core/error/exceptions.dart';
 import '../models/${featureName}_model.dart';
 
 abstract class ${className}RemoteDataSource {
@@ -183,10 +187,11 @@ class ${className}RemoteDataSourceImpl implements ${className}RemoteDataSource {
 }
 ''';
 
-  String localDataSourceTemplate(String featureName, String className) => '''
+  String localDataSourceTemplate(String featureName, String className) =>
+      '''
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/error/exceptions.dart';
+import 'package:${config.packageName}/core/error/exceptions.dart';
 import '../models/${featureName}_model.dart';
 
 abstract class ${className}LocalDataSource {
@@ -220,9 +225,10 @@ class ${className}LocalDataSourceImpl implements ${className}LocalDataSource {
 }
 ''';
 
-  String modelTemplate(String featureName, String className) => '''
+  String modelTemplate(String featureName, String className) =>
+      '''
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/domain/entities/$featureName.dart';
 
 class ${className}Model extends Equatable {
   final String id;
@@ -264,11 +270,12 @@ class ${className}Model extends Equatable {
 }
 ''';
 
-  String repositoryImplTemplate(String featureName, String className) => '''
+  String repositoryImplTemplate(String featureName, String className) =>
+      '''
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/network/network_info.dart';
+import 'package:${config.packageName}/core/error/exceptions.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/network/network_info.dart';
 import '../../domain/entities/$featureName.dart';
 import '../../domain/repositories/${featureName}_repository.dart';
 import '../datasources/local/${featureName}_local_data_source.dart';
@@ -350,7 +357,8 @@ class ${className}RepositoryImpl implements ${className}Repository {
 }
 ''';
 
-  String entityTemplate(String featureName, String className) => '''
+  String entityTemplate(String featureName, String className) =>
+      '''
 import 'package:equatable/equatable.dart';
 
 class $className extends Equatable {
@@ -368,17 +376,23 @@ class $className extends Equatable {
   List<Object?> get props => [id, name, description];
 }
 ''';
+  String repositoryTemplate(
+    String featureName,
+    String className,
+    bool generateCrud,
+  ) {
+    final crudMethods = generateCrud
+        ? '''
 
-  String repositoryTemplate(String featureName, String className, bool generateCrud) {
-    final crudMethods = generateCrud ? '''
-  Future<Either<Failure, $className>> create$className($className $featureName);
-  Future<Either<Failure, $className>> update$className($className $featureName);
-  Future<Either<Failure, void>> delete$className(String id);
-''' : '';
+Future<Either<Failure, $className>> create$className($className $featureName);
+Future<Either<Failure, $className>> update$className($className $featureName);
+Future<Either<Failure, void>> delete$className(String id);
+'''
+        : '';
 
     return '''
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
 import '../entities/$featureName.dart';
 
 abstract class ${className}Repository {
@@ -387,10 +401,11 @@ abstract class ${className}Repository {
 ''';
   }
 
-  String createUseCaseTemplate(String featureName, String className) => '''
+  String createUseCaseTemplate(String featureName, String className) =>
+      '''
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/usecases/usecase.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../entities/$featureName.dart';
 import '../repositories/${featureName}_repository.dart';
 
@@ -415,10 +430,11 @@ class Create${className}Params extends Equatable {
 }
 ''';
 
-  String getUseCaseTemplate(String featureName, String className) => '''
+  String getUseCaseTemplate(String featureName, String className) =>
+      '''
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/usecases/usecase.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../entities/$featureName.dart';
 import '../repositories/${featureName}_repository.dart';
 
@@ -434,10 +450,11 @@ class Get$className implements UseCase<$className, NoParams> {
 }
 ''';
 
-  String updateUseCaseTemplate(String featureName, String className) => '''
+  String updateUseCaseTemplate(String featureName, String className) =>
+      '''
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/usecases/usecase.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../entities/$featureName.dart';
 import '../repositories/${featureName}_repository.dart';
 
@@ -462,10 +479,11 @@ class Update${className}Params extends Equatable {
 }
 ''';
 
-  String deleteUseCaseTemplate(String featureName, String className) => '''
+  String deleteUseCaseTemplate(String featureName, String className) =>
+      '''
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/usecases/usecase.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../repositories/${featureName}_repository.dart';
 
 class Delete$className implements UseCase<void, Delete${className}Params> {

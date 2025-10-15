@@ -35,18 +35,18 @@ class FileGenerator {
 
     await _writeFile(
       path.join(libPath, 'core/network/network_info.dart'),
-      baseTemplates.networkInfoTemplate,
+      baseTemplates.networkInfoTemplate(config.defaultDi == DependencyInjection.injectable),
     );
 
     // Generate DI container if needed
     if (config.defaultDi == DependencyInjection.getIt) {
       await _writeFile(
-        path.join(libPath, 'injection/injection_container.dart'),
+        path.join(libPath, 'injection_container.dart'),
         baseTemplates.getItContainerTemplate,
       );
     } else if (config.defaultDi == DependencyInjection.injectable) {
       await _writeFile(
-        path.join(libPath, 'injection/injection_container.dart'),
+        path.join(libPath, 'injection_container.dart'),
         baseTemplates.injectableContainerTemplate,
       );
     }

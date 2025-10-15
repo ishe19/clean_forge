@@ -66,6 +66,19 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
       return ExitCode.usage.code;
     }
 
+    final pubspecFile = File(path.join(currentDir, 'pubspec.yaml'));
+    if (!pubspecFile.existsSync()) {
+      logger.err('❌ No pubspec.yaml found. Are you in a Flutter project?');
+      return ExitCode.usage.code;
+    }
+
+    final pubspecContent = pubspecFile.readAsStringSync();
+    final nameLine = pubspecContent.split('\n').firstWhere(
+      (line) => line.trim().startsWith('name:'),
+      orElse: () => 'name: unknown',
+    );
+    final packageName = nameLine.split(':')[1].trim();
+
     final configFile = File(path.join(currentDir, 'clean_forge.json'));
     if (configFile.existsSync()) {
       final confirm = Confirm(
@@ -75,7 +88,7 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
       if (!confirm) return ExitCode.success.code;
     }
 
-    final config = interactive ? await _interactiveSetup() : _parseFromArgs();
+    final config = interactive ? await _interactiveSetup(packageName) : _parseFromArgs(packageName);
     config.saveToFile();
     logger.info('💾 Configuration saved');
 
@@ -100,7 +113,7 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
     }
   }
 
-  Future<CleanForgeConfig> _interactiveSetup() async {
+  Future<CleanForgeConfig> _interactiveSetup(String packageName) async {
     logger.info('🚀 Interactive Setup\n');
 
     final stateManagement = Select(
@@ -140,10 +153,11 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
       useFreezing: useFreezing,
       useEquatable: useEquatable,
       useDartz: useDartz,
+      packageName: packageName,
     );
   }
 
-  CleanForgeConfig _parseFromArgs() {
+  CleanForgeConfig _parseFromArgs(String packageName) {
     return CleanForgeConfig(
       defaultStateManagement: StateManagement.values.firstWhere(
         (e) => e.name == argResults!['state-management'],
@@ -157,6 +171,7 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
       useFreezing: argResults!['freezing'] as bool,
       useEquatable: argResults!['equatable'] as bool,
       useDartz: argResults!['dartz'] as bool,
+      packageName: packageName,
     );
   }
 
@@ -175,8 +190,7 @@ lib/
 │   ├── utils/
 │   └── constants/
 ├── features/
-└── injection/
-    └── injection_container.dart
+└── injection_container.dart
 ''';
     logger.info(structure);
   }

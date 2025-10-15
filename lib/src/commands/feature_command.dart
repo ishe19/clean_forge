@@ -6,6 +6,7 @@ import '../models/config_model.dart';
 import '../generators/folder_generator.dart';
 import '../generators/file_generator.dart';
 import '../generators/test_generator.dart';
+import '../generators/di_generator.dart';
 import '../utils/validators.dart';
 
 class FeatureCommand extends Command<int> {
@@ -155,6 +156,10 @@ logic in the data sources and customize the UI in the presentation layer.
         final testGen = TestGenerator(config);
         await testGen.generateFeatureTests(featureName);
       }
+
+      // Update DI container
+      final diGen = DiGenerator(config);
+      await diGen.updateInjectionContainer(featureName);
 
       progress.complete('✅ Feature "$featureName" generated!');
 

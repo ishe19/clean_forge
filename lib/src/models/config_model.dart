@@ -34,6 +34,7 @@ class CleanForgeConfig {
   final bool useDartz;
   final String? organizationName;
   final Map<String, dynamic> customPaths;
+  final String packageName;
 
   CleanForgeConfig({
     this.defaultStateManagement = StateManagement.bloc,
@@ -45,6 +46,7 @@ class CleanForgeConfig {
     this.useDartz = true,
     this.organizationName,
     this.customPaths = const {},
+    this.packageName = 'unknown',
   });
 
   factory CleanForgeConfig.fromJson(Map<String, dynamic> json) {
@@ -64,6 +66,7 @@ class CleanForgeConfig {
       useDartz: json['useDartz'] ?? true,
       organizationName: json['organizationName'],
       customPaths: json['customPaths'] ?? {},
+      packageName: json['packageName'] ?? 'unknown',
     );
   }
 
@@ -78,6 +81,7 @@ class CleanForgeConfig {
       'useDartz': useDartz,
       'organizationName': organizationName,
       'customPaths': customPaths,
+      'packageName': packageName,
     };
   }
 
