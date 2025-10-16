@@ -19,10 +19,7 @@ class ConfigCommand extends Command<int> {
         help: 'Set default dependency injection',
         allowed: DependencyInjection.values.map((e) => e.name),
       )
-      ..addFlag(
-        'tests',
-        help: 'Enable/disable test generation',
-      )
+      ..addFlag('tests', help: 'Enable/disable test generation')
       ..addFlag(
         'freezing',
         help: 'Enable/disable Freezing for immutable models',
@@ -35,11 +32,7 @@ class ConfigCommand extends Command<int> {
         'dartz',
         help: 'Enable/disable Dartz for functional programming',
       )
-      ..addFlag(
-        'show',
-        help: 'Show current configuration',
-        negatable: false,
-      )
+      ..addFlag('show', help: 'Show current configuration', negatable: false)
       ..addFlag(
         'reset',
         help: 'Reset configuration to defaults',
@@ -104,7 +97,6 @@ remain unchanged. Use 'clean_forge init' to set up initial configuration.
 
   @override
   Future<int> run() async {
-
     if (argResults!['show'] as bool) {
       return _showConfig();
     }
@@ -114,7 +106,8 @@ remain unchanged. Use 'clean_forge init' to set up initial configuration.
     }
 
     // Load existing config or create default
-    CleanForgeConfig config = CleanForgeConfig.loadFromFile() ?? CleanForgeConfig();
+    CleanForgeConfig config =
+        CleanForgeConfig.loadFromFile() ?? CleanForgeConfig();
 
     // Update config based on flags
     bool hasChanges = false;
@@ -179,13 +172,17 @@ remain unchanged. Use 'clean_forge init' to set up initial configuration.
     return ExitCode.success.code;
   }
 
-  Future<CleanForgeConfig> _interactiveConfig(CleanForgeConfig currentConfig) async {
+  Future<CleanForgeConfig> _interactiveConfig(
+    CleanForgeConfig currentConfig,
+  ) async {
     logger.info('🔧 Interactive Configuration\n');
 
     final stateManagement = Select(
       prompt: 'Choose default state management:',
       options: StateManagement.values.map((e) => e.displayName).toList(),
-      initialIndex: StateManagement.values.indexOf(currentConfig.defaultStateManagement),
+      initialIndex: StateManagement.values.indexOf(
+        currentConfig.defaultStateManagement,
+      ),
     ).interact();
 
     final di = Select(
@@ -254,7 +251,9 @@ remain unchanged. Use 'clean_forge init' to set up initial configuration.
   }
 
   void _displayConfig(CleanForgeConfig config) {
-    logger.info('  State Management: ${config.defaultStateManagement.displayName}');
+    logger.info(
+      '  State Management: ${config.defaultStateManagement.displayName}',
+    );
     logger.info('  Dependency Injection: ${config.defaultDi.displayName}');
     logger.info('  Generate Tests: ${config.generateTests ? "✓" : "✗"}');
     logger.info('  Use Freezing: ${config.useFreezing ? "✓" : "✗"}');
@@ -276,10 +275,12 @@ extension on CleanForgeConfig {
     Map<String, dynamic>? customPaths,
   }) {
     return CleanForgeConfig(
-      defaultStateManagement: defaultStateManagement ?? this.defaultStateManagement,
+      defaultStateManagement:
+          defaultStateManagement ?? this.defaultStateManagement,
       defaultDi: defaultDi ?? this.defaultDi,
       generateTests: generateTests ?? this.generateTests,
-      generateIntegrationTests: generateIntegrationTests ?? this.generateIntegrationTests,
+      generateIntegrationTests:
+          generateIntegrationTests ?? this.generateIntegrationTests,
       useFreezing: useFreezing ?? this.useFreezing,
       useEquatable: useEquatable ?? this.useEquatable,
       useDartz: useDartz ?? this.useDartz,

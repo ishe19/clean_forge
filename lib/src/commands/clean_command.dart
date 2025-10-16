@@ -105,8 +105,12 @@ unless the --force flag is used. Use --dry-run to preview without making changes
 
   Future<int> _cleanFeature(String featureName, bool dryRun, bool force) async {
     final currentDir = Directory.current.path;
-    final featureDir = Directory(path.join(currentDir, 'lib', 'features', featureName));
-    final testDir = Directory(path.join(currentDir, 'test', 'features', featureName));
+    final featureDir = Directory(
+      path.join(currentDir, 'lib', 'features', featureName),
+    );
+    final testDir = Directory(
+      path.join(currentDir, 'test', 'features', featureName),
+    );
 
     if (!featureDir.existsSync()) {
       logger.err('❌ Feature "$featureName" does not exist!');
@@ -138,7 +142,9 @@ unless the --force flag is used. Use --dry-run to preview without making changes
         }
       }
 
-      progress.complete(dryRun ? '✅ Dry run completed' : '✅ Feature "$featureName" cleaned!');
+      progress.complete(
+        dryRun ? '✅ Dry run completed' : '✅ Feature "$featureName" cleaned!',
+      );
       return ExitCode.success.code;
     } catch (e) {
       progress.fail('Failed: $e');
@@ -149,7 +155,8 @@ unless the --force flag is used. Use --dry-run to preview without making changes
   Future<int> _cleanAll(bool dryRun, bool force) async {
     if (!force && !dryRun) {
       final confirm = Confirm(
-        prompt: 'Remove ALL generated files and configuration? This cannot be undone!',
+        prompt:
+            'Remove ALL generated files and configuration? This cannot be undone!',
         defaultValue: false,
       ).interact();
 
@@ -188,7 +195,9 @@ unless the --force flag is used. Use --dry-run to preview without making changes
         await _removeGeneratedDirectories(path.join(currentDir, 'test'));
       }
 
-      progress.complete(dryRun ? '✅ Dry run completed' : '✅ Everything cleaned!');
+      progress.complete(
+        dryRun ? '✅ Dry run completed' : '✅ Everything cleaned!',
+      );
       return ExitCode.success.code;
     } catch (e) {
       progress.fail('Failed: $e');
@@ -205,7 +214,8 @@ unless the --force flag is used. Use --dry-run to preview without making changes
     final options = ['Clean specific feature', 'Clean everything'];
 
     // Check if there are features to clean
-    final hasFeatures = featuresDir.existsSync() &&
+    final hasFeatures =
+        featuresDir.existsSync() &&
         featuresDir.listSync().whereType<Directory>().isNotEmpty;
 
     if (!hasFeatures) {
@@ -239,9 +249,13 @@ unless the --force flag is used. Use --dry-run to preview without making changes
     try {
       for (final entity in dir.listSync(recursive: true)) {
         if (entity is File) {
-          logger.info('  📄 ${path.relative(entity.path, from: Directory.current.path)}');
+          logger.info(
+            '  📄 ${path.relative(entity.path, from: Directory.current.path)}',
+          );
         } else if (entity is Directory) {
-          logger.info('  📁 ${path.relative(entity.path, from: Directory.current.path)}/');
+          logger.info(
+            '  📁 ${path.relative(entity.path, from: Directory.current.path)}/',
+          );
         }
       }
     } catch (e) {

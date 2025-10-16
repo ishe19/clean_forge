@@ -16,12 +16,22 @@ class TestGenerator {
 
     // Generate data layer tests
     await _writeTestFile(
-      path.join(testDir, 'data', 'datasources', '${featureName}_remote_data_source_test.dart'),
+      path.join(
+        testDir,
+        'data',
+        'datasources',
+        '${featureName}_remote_data_source_test.dart',
+      ),
       testTemplates.remoteDataSourceTest,
     );
 
     await _writeTestFile(
-      path.join(testDir, 'data', 'datasources', '${featureName}_local_data_source_test.dart'),
+      path.join(
+        testDir,
+        'data',
+        'datasources',
+        '${featureName}_local_data_source_test.dart',
+      ),
       testTemplates.localDataSourceTest,
     );
 
@@ -31,7 +41,12 @@ class TestGenerator {
     );
 
     await _writeTestFile(
-      path.join(testDir, 'data', 'repositories', '${featureName}_repository_impl_test.dart'),
+      path.join(
+        testDir,
+        'data',
+        'repositories',
+        '${featureName}_repository_impl_test.dart',
+      ),
       testTemplates.repositoryImplTest,
     );
 
@@ -45,37 +60,67 @@ class TestGenerator {
     switch (config.defaultStateManagement) {
       case StateManagement.bloc:
         await _writeTestFile(
-          path.join(testDir, 'presentation', 'bloc', '${featureName}_bloc_test.dart'),
+          path.join(
+            testDir,
+            'presentation',
+            'bloc',
+            '${featureName}_bloc_test.dart',
+          ),
           testTemplates.blocTest,
         );
         break;
       case StateManagement.cubit:
         await _writeTestFile(
-          path.join(testDir, 'presentation', 'cubit', '${featureName}_cubit_test.dart'),
+          path.join(
+            testDir,
+            'presentation',
+            'cubit',
+            '${featureName}_cubit_test.dart',
+          ),
           testTemplates.cubitTest,
         );
         break;
       case StateManagement.riverpod:
         await _writeTestFile(
-          path.join(testDir, 'presentation', 'providers', '${featureName}_provider_test.dart'),
+          path.join(
+            testDir,
+            'presentation',
+            'providers',
+            '${featureName}_provider_test.dart',
+          ),
           testTemplates.riverpodTest,
         );
         break;
       case StateManagement.provider:
         await _writeTestFile(
-          path.join(testDir, 'presentation', 'providers', '${featureName}_provider_test.dart'),
+          path.join(
+            testDir,
+            'presentation',
+            'providers',
+            '${featureName}_provider_test.dart',
+          ),
           testTemplates.providerTest,
         );
         break;
       case StateManagement.getx:
         await _writeTestFile(
-          path.join(testDir, 'presentation', 'controllers', '${featureName}_controller_test.dart'),
+          path.join(
+            testDir,
+            'presentation',
+            'controllers',
+            '${featureName}_controller_test.dart',
+          ),
           testTemplates.getxTest,
         );
         break;
       case StateManagement.mobx:
         await _writeTestFile(
-          path.join(testDir, 'presentation', 'stores', '${featureName}_store_test.dart'),
+          path.join(
+            testDir,
+            'presentation',
+            'stores',
+            '${featureName}_store_test.dart',
+          ),
           testTemplates.mobxTest,
         );
         break;
@@ -91,6 +136,9 @@ class TestGenerator {
   }
 
   String _toPascalCase(String text) {
-    return text.split('_').map((word) => word[0].toUpperCase() + word.substring(1)).join('');
+    return text
+        .split('_')
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join('');
   }
 }

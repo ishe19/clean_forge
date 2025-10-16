@@ -52,11 +52,11 @@ class CleanForgeConfig {
   factory CleanForgeConfig.fromJson(Map<String, dynamic> json) {
     return CleanForgeConfig(
       defaultStateManagement: StateManagement.values.firstWhere(
-            (e) => e.name == json['defaultStateManagement'],
+        (e) => e.name == json['defaultStateManagement'],
         orElse: () => StateManagement.bloc,
       ),
       defaultDi: DependencyInjection.values.firstWhere(
-            (e) => e.name == json['defaultDi'],
+        (e) => e.name == json['defaultDi'],
         orElse: () => DependencyInjection.getIt,
       ),
       generateTests: json['generateTests'] ?? true,
@@ -86,7 +86,9 @@ class CleanForgeConfig {
   }
 
   static CleanForgeConfig? loadFromFile() {
-    final configFile = File(path.join(Directory.current.path, 'clean_forge.json'));
+    final configFile = File(
+      path.join(Directory.current.path, 'clean_forge.json'),
+    );
     if (!configFile.existsSync()) return null;
 
     try {
@@ -99,7 +101,9 @@ class CleanForgeConfig {
   }
 
   void saveToFile() {
-    final configFile = File(path.join(Directory.current.path, 'clean_forge.json'));
+    final configFile = File(
+      path.join(Directory.current.path, 'clean_forge.json'),
+    );
     configFile.writeAsStringSync(
       const JsonEncoder.withIndent('  ').convert(toJson()),
     );

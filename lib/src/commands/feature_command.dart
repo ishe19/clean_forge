@@ -24,10 +24,7 @@ class FeatureCommand extends Command<int> {
         help: 'Generate CRUD operations (Create, Read, Update, Delete)',
         negatable: false,
       )
-      ..addFlag(
-        'tests',
-        help: 'Generate test files',
-      )
+      ..addFlag('tests', help: 'Generate test files')
       ..addFlag(
         'dry-run',
         help: 'Show what would be generated without creating files',
@@ -163,7 +160,12 @@ logic in the data sources and customize the UI in the presentation layer.
 
       progress.complete('✅ Feature "$featureName" generated!');
 
-      _displaySummary(featureName, stateManagement, generateCrud, generateTests);
+      _displaySummary(
+        featureName,
+        stateManagement,
+        generateCrud,
+        generateTests,
+      );
 
       return ExitCode.success.code;
     } catch (e) {

@@ -7,7 +7,8 @@ class TestTemplates {
 
   TestTemplates(this.config, this.featureName, this.className);
 
-  String get remoteDataSourceTest => '''
+  String get remoteDataSourceTest =>
+      '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
@@ -66,7 +67,8 @@ void main() {
 }
 ''';
 
-  String get localDataSourceTest => '''
+  String get localDataSourceTest =>
+      '''
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -115,7 +117,8 @@ void main() {
 }
 ''';
 
-  String get modelTest => '''
+  String get modelTest =>
+      '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:clean_forge/features/$featureName/data/models/${featureName}_model.dart';
 import 'package:clean_forge/features/$featureName/domain/entities/$featureName.dart';
@@ -166,7 +169,8 @@ void main() {
 }
 ''';
 
-  String get repositoryImplTest => '''
+  String get repositoryImplTest =>
+      '''
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -305,7 +309,8 @@ void main() {
 }
 ''';
 
-  String get getUseCaseTest => '''
+  String get getUseCaseTest =>
+      '''
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -360,7 +365,8 @@ void main() {
 }
 ''';
 
-  String get blocTest => '''
+  String get blocTest =>
+      '''
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -426,7 +432,8 @@ void main() {
 }
 ''';
 
-  String get cubitTest => '''
+  String get cubitTest =>
+      '''
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -492,7 +499,8 @@ void main() {
 }
 ''';
 
-  String get riverpodTest => '''
+  String get riverpodTest =>
+      '''
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -525,7 +533,8 @@ void main() {
 }
 ''';
 
-  String get providerTest => '''
+  String get providerTest =>
+      '''
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -551,7 +560,8 @@ void main() {
 }
 ''';
 
-  String get getxTest => '''
+  String get getxTest =>
+      '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mocktail/mocktail.dart';
@@ -581,7 +591,8 @@ void main() {
 }
 ''';
 
-  String get mobxTest => '''
+  String get mobxTest =>
+      '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';

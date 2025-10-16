@@ -71,7 +71,8 @@ ${generateCrud ? "  final Delete$className delete$className;" : ""}
 ''';
   }
 
-  String get stateFile => '''
+  String get stateFile =>
+      '''
 import 'package:equatable/equatable.dart';
 import '../../../domain/entities/$featureName.dart';
 

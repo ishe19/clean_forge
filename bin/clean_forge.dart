@@ -11,9 +11,10 @@ const version = '0.0.1';
 Future<void> main(List<String> args) async {
   final logger = Logger();
 
-  final runner = CommandRunner<int>(
-    'clean_forge',
-    '''
+  final runner =
+      CommandRunner<int>(
+          'clean_forge',
+          '''
 🔥 Clean Forge - Next-Gen Clean Architecture CLI for Flutter
 
 Clean Forge is a comprehensive CLI tool that generates production-ready Clean Architecture
@@ -44,17 +45,17 @@ SUPPORTED STATE MANAGEMENT:
 
 For detailed help on any command, use: clean_forge <command> --help
 ''',
-  )
-    ..addCommand(InitCommand(logger))
-    ..addCommand(FeatureCommand(logger))
-    ..addCommand(ConfigCommand(logger))
-    ..addCommand(CleanCommand(logger))
-    ..argParser.addFlag(
-      'version',
-      abbr: 'v',
-      negatable: false,
-      help: 'Print the current version.',
-    );
+        )
+        ..addCommand(InitCommand(logger))
+        ..addCommand(FeatureCommand(logger))
+        ..addCommand(ConfigCommand(logger))
+        ..addCommand(CleanCommand(logger))
+        ..argParser.addFlag(
+          'version',
+          abbr: 'v',
+          negatable: false,
+          help: 'Print the current version.',
+        );
 
   try {
     final argResults = runner.parse(args);

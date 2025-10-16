@@ -73,10 +73,12 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
     }
 
     final pubspecContent = pubspecFile.readAsStringSync();
-    final nameLine = pubspecContent.split('\n').firstWhere(
-      (line) => line.trim().startsWith('name:'),
-      orElse: () => 'name: unknown',
-    );
+    final nameLine = pubspecContent
+        .split('\n')
+        .firstWhere(
+          (line) => line.trim().startsWith('name:'),
+          orElse: () => 'name: unknown',
+        );
     final packageName = nameLine.split(':')[1].trim();
 
     final configFile = File(path.join(currentDir, 'clean_forge.json'));
@@ -88,7 +90,9 @@ After initialization, use 'clean_forge feature <name>' to create your first feat
       if (!confirm) return ExitCode.success.code;
     }
 
-    final config = interactive ? await _interactiveSetup(packageName) : _parseFromArgs(packageName);
+    final config = interactive
+        ? await _interactiveSetup(packageName)
+        : _parseFromArgs(packageName);
     config.saveToFile();
     logger.info('💾 Configuration saved');
 

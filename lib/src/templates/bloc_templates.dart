@@ -141,7 +141,8 @@ class Get${className}Event extends ${className}Event {
 ''';
   }
 
-  String get stateFile => '''
+  String get stateFile =>
+      '''
 import 'package:equatable/equatable.dart';
 import '../../../domain/entities/$featureName.dart';
 

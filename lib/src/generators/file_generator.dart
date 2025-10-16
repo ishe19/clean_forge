@@ -35,7 +35,9 @@ class FileGenerator {
 
     await _writeFile(
       path.join(libPath, 'core/network/network_info.dart'),
-      baseTemplates.networkInfoTemplate(config.defaultDi == DependencyInjection.injectable),
+      baseTemplates.networkInfoTemplate(
+        config.defaultDi == DependencyInjection.injectable,
+      ),
     );
 
     // Generate DI container if needed
@@ -79,13 +81,19 @@ class FileGenerator {
 
     // Remote data source
     await _writeFile(
-      path.join(featureDir, 'data/datasources/remote/${featureName}_remote_data_source.dart'),
+      path.join(
+        featureDir,
+        'data/datasources/remote/${featureName}_remote_data_source.dart',
+      ),
       baseTemplates.remoteDataSourceTemplate(featureName, className),
     );
 
     // Local data source
     await _writeFile(
-      path.join(featureDir, 'data/datasources/local/${featureName}_local_data_source.dart'),
+      path.join(
+        featureDir,
+        'data/datasources/local/${featureName}_local_data_source.dart',
+      ),
       baseTemplates.localDataSourceTemplate(featureName, className),
     );
 
@@ -97,7 +105,10 @@ class FileGenerator {
 
     // Repository implementation
     await _writeFile(
-      path.join(featureDir, 'data/repositories/${featureName}_repository_impl.dart'),
+      path.join(
+        featureDir,
+        'data/repositories/${featureName}_repository_impl.dart',
+      ),
       baseTemplates.repositoryImplTemplate(featureName, className),
     );
   }
@@ -118,7 +129,10 @@ class FileGenerator {
 
     // Repository interface
     await _writeFile(
-      path.join(featureDir, 'domain/repositories/${featureName}_repository.dart'),
+      path.join(
+        featureDir,
+        'domain/repositories/${featureName}_repository.dart',
+      ),
       baseTemplates.repositoryTemplate(featureName, className, generateCrud),
     );
 
@@ -190,17 +204,31 @@ class FileGenerator {
         break;
 
       case StateManagement.riverpod:
-        final riverpodTemplates = RiverpodTemplates(config, featureName, className);
+        final riverpodTemplates = RiverpodTemplates(
+          config,
+          featureName,
+          className,
+        );
         await _writeFile(
-          path.join(featureDir, 'presentation/providers/${featureName}_provider.dart'),
+          path.join(
+            featureDir,
+            'presentation/providers/${featureName}_provider.dart',
+          ),
           riverpodTemplates.providerFile(generateCrud),
         );
         break;
 
       case StateManagement.provider:
-        final providerTemplates = ProviderTemplates(config, featureName, className);
+        final providerTemplates = ProviderTemplates(
+          config,
+          featureName,
+          className,
+        );
         await _writeFile(
-          path.join(featureDir, 'presentation/providers/${featureName}_provider.dart'),
+          path.join(
+            featureDir,
+            'presentation/providers/${featureName}_provider.dart',
+          ),
           providerTemplates.providerFile(generateCrud),
         );
         break;
@@ -208,7 +236,10 @@ class FileGenerator {
       case StateManagement.getx:
         final getxTemplates = GetXTemplates(config, featureName, className);
         await _writeFile(
-          path.join(featureDir, 'presentation/controllers/${featureName}_controller.dart'),
+          path.join(
+            featureDir,
+            'presentation/controllers/${featureName}_controller.dart',
+          ),
           getxTemplates.controllerFile(generateCrud),
         );
         break;
@@ -216,7 +247,10 @@ class FileGenerator {
       case StateManagement.mobx:
         final mobxTemplates = MobXTemplates(config, featureName, className);
         await _writeFile(
-          path.join(featureDir, 'presentation/stores/${featureName}_store.dart'),
+          path.join(
+            featureDir,
+            'presentation/stores/${featureName}_store.dart',
+          ),
           mobxTemplates.storeFile(generateCrud),
         );
         break;
@@ -238,7 +272,11 @@ class FileGenerator {
     );
   }
 
-  String _pageTemplate(String featureName, String className, StateManagement sm) {
+  String _pageTemplate(
+    String featureName,
+    String className,
+    StateManagement sm,
+  ) {
     // Implementation depends on state management
     return '''
 import 'package:flutter/material.dart';
@@ -285,6 +323,9 @@ class ${className}Widget extends StatelessWidget {
   }
 
   String _toPascalCase(String text) {
-    return text.split('_').map((word) => word[0].toUpperCase() + word.substring(1)).join('');
+    return text
+        .split('_')
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join('');
   }
 }
