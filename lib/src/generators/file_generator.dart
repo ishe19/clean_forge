@@ -41,6 +41,28 @@ class FileGenerator {
       ),
     );
 
+    // Generate utils files
+    await _writeFile(
+      path.join(libPath, 'core/utils/extensions.dart'),
+      baseTemplates.utilsExtensionsTemplate,
+    );
+
+    await _writeFile(
+      path.join(libPath, 'core/utils/validators.dart'),
+      baseTemplates.utilsValidatorsTemplate,
+    );
+
+    // Generate constants files
+    await _writeFile(
+      path.join(libPath, 'core/constants/api_constants.dart'),
+      baseTemplates.constantsApiTemplate,
+    );
+
+    await _writeFile(
+      path.join(libPath, 'core/constants/app_constants.dart'),
+      baseTemplates.constantsAppTemplate,
+    );
+
     // Generate DI container if needed
     if (config.defaultDi == DependencyInjection.getIt) {
       await _writeFile(

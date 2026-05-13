@@ -18,11 +18,8 @@ class FolderGenerator {
       'features',
     ];
 
-    // Add DI folder if using get_it or injectable
-    // if (config.defaultDi == DependencyInjection.getIt ||
-    //     config.defaultDi == DependencyInjection.injectable) {
-    //   corePaths.add('injection');
-    // }
+    // injection container generated at lib/injection_container.dart (lib root)
+    // Folder not needed since file is at root level
 
     for (final corePath in corePaths) {
       await _createDirectory(path.join(libPath, corePath));

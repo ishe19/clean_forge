@@ -102,6 +102,7 @@ class NetworkInfoImpl implements NetworkInfo {
   String get getItContainerTemplate => '''
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../core/network/network_info.dart';
 
 final sl = GetIt.instance;
@@ -110,8 +111,112 @@ Future<void> init() async {
   // Core
   sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   // Features will be registered here
+}
+''';
+
+  String get utilsExtensionsTemplate => '''
+import 'package:flutter/material.dart';
+
+extension ContextExtensions on BuildContext {
+  ThemeData get theme => Theme.of(this);
+  TextTheme get textTheme => Theme.of(this).textTheme;
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
+  Size get screenSize => mediaQuery.size;
+  bool get isSmallScreen => screenSize.width < 600;
+}
+
+extension StringExtensions on String {
+  String get capitalize => isEmpty ? this : '\${this[0].toUpperCase()}\${substring(1)}';
+  String? get nullIfEmpty => isEmpty ? null : this;
+}
+
+extension DateTimeExtensions on DateTime {
+  String get formatted => '\${year.toString().padLeft(4, '0')}-\${month.toString().padLeft(2, '0')}-\${day.toString().padLeft(2, '0')}';
+}
+''';
+
+  String get utilsValidatorsTemplate => '''
+abstract class InputValidators {
+  static String? required(String? value) {
+    if (value == null || value.trim().isEmpty) return 'This field is required';
+    return null;
+  }
+
+  static String? email(String? value) {
+    if (value == null || value.trim().isEmpty) return 'This field is required';
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$');
+    if (!emailRegex.hasMatch(value)) return 'Please enter a valid email';
+    return null;
+  }
+
+  static String? phone(String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    final phoneRegex = RegExp(r'^\+?[\d\s\-\(\)]{7,15}\$');
+    if (!phoneRegex.hasMatch(value)) return 'Please enter a valid phone number';
+    return null;
+  }
+
+  static String? minLength(int min) => (String? value) {
+    if (value == null || value.trim().isEmpty) return 'This field is required';
+    if (value.length < min) return 'Must be at least \$min characters';
+    return null;
+  };
+
+  static String? maxLength(int max) => (String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    if (value.length > max) return 'Must be at most \$max characters';
+    return null;
+  };
+}
+''';
+
+  String get constantsApiTemplate => '''
+class ApiConstants {
+  ApiConstants._();
+
+  static const String baseUrl = 'https://api.example.com';
+  static const String apiVersion = '/api/v1';
+  static const Duration timeout = Duration(seconds: 30);
+  static const Duration connectTimeout = Duration(seconds: 10);
+
+  // Auth endpoints
+  static const String login = '/auth/login';
+  static const String register = '/auth/register';
+  static const String logout = '/auth/logout';
+  static const String refreshToken = '/auth/refresh';
+
+  // User endpoints
+  static const String users = '/users';
+  static String user(String id) => '/users/\$id';
+  static String userProfile(String id) => '/users/\$id/profile';
+
+  // Generic CRUD endpoints
+  static String list(String resource) => '/\$resource';
+  static String detail(String resource, String id) => '/\$resource/\$id';
+  static String create(String resource) => '/\$resource';
+  static String update(String resource, String id) => '/\$resource/\$id';
+  static String delete(String resource, String id) => '/\$resource/\$id';
+}
+''';
+
+  String get constantsAppTemplate => '''
+class AppConstants {
+  AppConstants._();
+
+  static const String appName = 'MyApp';
+  static const String appVersion = '1.0.0';
+  static const int skeletonDelay = 500;
+  static const int debounceDuration = 300;
+  static const int pageSize = 20;
+  static const int maxRetries = 3;
+  static const double defaultPadding = 16.0;
+  static const double defaultBorderRadius = 8.0;
+  static const Duration animationDuration = Duration(milliseconds: 300);
 }
 ''';
 
@@ -408,6 +513,7 @@ abstract class ${className}Repository {
   String createUseCaseTemplate(String featureName, String className) =>
       '''
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:${config.packageName}/core/error/failures.dart';
 import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../entities/$featureName.dart';
@@ -457,6 +563,7 @@ class Get$className implements UseCase<$className, NoParams> {
   String updateUseCaseTemplate(String featureName, String className) =>
       '''
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:${config.packageName}/core/error/failures.dart';
 import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../entities/$featureName.dart';
@@ -486,6 +593,7 @@ class Update${className}Params extends Equatable {
   String deleteUseCaseTemplate(String featureName, String className) =>
       '''
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:${config.packageName}/core/error/failures.dart';
 import 'package:${config.packageName}/core/usecases/usecase.dart';
 import '../repositories/${featureName}_repository.dart';

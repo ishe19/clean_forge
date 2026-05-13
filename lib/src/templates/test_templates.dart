@@ -616,4 +616,47 @@ void main() {
   });
 }
 ''';
+
+  String get integrationTest =>
+      '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:${config.packageName}/features/$featureName/data/datasources/remote/${featureName}_remote_data_source.dart';
+import 'package:${config.packageName}/features/$featureName/data/datasources/local/${featureName}_local_data_source.dart';
+import 'package:${config.packageName}/features/$featureName/data/repositories/${featureName}_repository_impl.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/core/network/network_info.dart';
+
+void main() {
+  group('$featureName Integration', () {
+    test('remote data source should connect to API', () async {
+      // Integration test: requires a running backend
+      // final dio = Dio(BaseOptions(baseUrl: 'http://localhost:8080'));
+      // final dataSource = ${className}RemoteDataSourceImpl(client: dio);
+      // final result = await dataSource.get$className();
+      // expect(result, isA<${className}Model>());
+    });
+
+    test('repository should handle online/offline flow', () async {
+      // Integration test: verify cache-then-network strategy
+      // final remoteDs = ${className}RemoteDataSourceImpl(client: Dio());
+      // final localDs = ${className}LocalDataSourceImpl(sharedPreferences: await SharedPreferences.getInstance());
+      // final networkInfo = NetworkInfoImpl(connectionChecker: InternetConnectionChecker());
+      // final repository = ${className}RepositoryImpl(
+      //   remoteDataSource: remoteDs,
+      //   localDataSource: localDs,
+      //   networkInfo: networkInfo,
+      // );
+      // final result = await repository.get$className();
+      // expect(result.isRight(), isTrue);
+    });
+
+    test('get $featureName use case should return data', () async {
+      // Integration test: requires full dependency setup
+      // final useCase = Get$className(repository);
+      // final result = await useCase(NoParams());
+      // expect(result.isRight(), isTrue);
+    });
+  });
+}
+''';
 }
