@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import '../models/config_model.dart';
 import '../templates/test_templates.dart';
+import '../utils/string_helpers.dart';
 
 class TestGenerator {
   final CleanForgeConfig config;
@@ -10,7 +11,7 @@ class TestGenerator {
 
   Future<void> generateFeatureTests(String featureName) async {
     final testDir = path.join('test', 'features', featureName);
-    final className = _toPascalCase(featureName);
+    final className = toPascalCase(featureName);
 
     final testTemplates = TestTemplates(config, featureName, className);
 
@@ -133,12 +134,5 @@ class TestGenerator {
     final file = File(filePath);
     await file.create(recursive: true);
     await file.writeAsString(content);
-  }
-
-  String _toPascalCase(String text) {
-    return text
-        .split('_')
-        .map((word) => word[0].toUpperCase() + word.substring(1))
-        .join('');
   }
 }

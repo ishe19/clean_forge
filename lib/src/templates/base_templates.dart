@@ -82,30 +82,34 @@ class NoParams extends Equatable {
 
   String networkInfoTemplate(bool useInjectable) =>
       '''
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
 ${useInjectable ? '@singleton' : ''}
 class NetworkInfoImpl implements NetworkInfo {
+  final InternetConnectionChecker connectionChecker;
+
+  NetworkInfoImpl({required this.connectionChecker});
+
   @override
-  Future<bool> get isConnected async {
-    // TODO: Implement network connectivity check
-    // Use internet_connection_checker package
-    return true;
-  }
+  Future<bool> get isConnected => connectionChecker.hasConnection;
 }
 ''';
 
   String get getItContainerTemplate => '''
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../core/network/network_info.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   // Core
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
+  sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
 
   // Features will be registered here
 }

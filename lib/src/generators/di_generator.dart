@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import '../models/config_model.dart';
+import '../utils/string_helpers.dart';
 
 class DiGenerator {
   final CleanForgeConfig config;
@@ -20,7 +21,7 @@ class DiGenerator {
     }
 
     final content = await File(injectionContainerPath).readAsString();
-    final className = _toPascalCase(featureName);
+    final className = toPascalCase(featureName);
 
     // Add feature registrations based on DI system
     String updatedContent = content;
@@ -91,12 +92,5 @@ class DiGenerator {
       '  // Features will be registered here',
       '  // Features will be registered here$comment',
     );
-  }
-
-  String _toPascalCase(String text) {
-    return text
-        .split('_')
-        .map((word) => word[0].toUpperCase() + word.substring(1))
-        .join('');
   }
 }

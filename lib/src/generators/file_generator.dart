@@ -8,6 +8,7 @@ import '../templates/riverpod_templates.dart';
 import '../templates/provider_templates.dart';
 import '../templates/getx_templates.dart';
 import '../templates/mobx_templates.dart';
+import '../utils/string_helpers.dart';
 
 class FileGenerator {
   final CleanForgeConfig config;
@@ -77,7 +78,7 @@ class FileGenerator {
 
   Future<void> _generateDataLayer(String featureDir, String featureName) async {
     final baseTemplates = BaseTemplates(config);
-    final className = _toPascalCase(featureName);
+    final className = toPascalCase(featureName);
 
     // Remote data source
     await _writeFile(
@@ -119,7 +120,7 @@ class FileGenerator {
     bool generateCrud,
   ) async {
     final baseTemplates = BaseTemplates(config);
-    final className = _toPascalCase(featureName);
+    final className = toPascalCase(featureName);
 
     // Entity
     await _writeFile(
@@ -171,7 +172,7 @@ class FileGenerator {
     StateManagement stateManagement,
     bool generateCrud,
   ) async {
-    final className = _toPascalCase(featureName);
+    final className = toPascalCase(featureName);
 
     // Generate state management specific files
     switch (stateManagement) {
@@ -320,12 +321,5 @@ class ${className}Widget extends StatelessWidget {
     final file = File(filePath);
     await file.create(recursive: true);
     await file.writeAsString(content);
-  }
-
-  String _toPascalCase(String text) {
-    return text
-        .split('_')
-        .map((word) => word[0].toUpperCase() + word.substring(1))
-        .join('');
   }
 }

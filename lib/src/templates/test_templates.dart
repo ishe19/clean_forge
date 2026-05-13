@@ -12,8 +12,8 @@ class TestTemplates {
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
-import 'package:clean_forge/features/$featureName/data/datasources/remote/${featureName}_remote_data_source.dart';
-import 'package:clean_forge/features/$featureName/data/models/${featureName}_model.dart';
+import 'package:${config.packageName}/features/$featureName/data/datasources/remote/${featureName}_remote_data_source.dart';
+import 'package:${config.packageName}/features/$featureName/data/models/${featureName}_model.dart';
 
 class MockDio extends Mock implements Dio {}
 
@@ -73,8 +73,8 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:clean_forge/features/$featureName/data/datasources/local/${featureName}_local_data_source.dart';
-import 'package:clean_forge/features/$featureName/data/models/${featureName}_model.dart';
+import 'package:${config.packageName}/features/$featureName/data/datasources/local/${featureName}_local_data_source.dart';
+import 'package:${config.packageName}/features/$featureName/data/models/${featureName}_model.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
@@ -120,8 +120,8 @@ void main() {
   String get modelTest =>
       '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_forge/features/$featureName/data/models/${featureName}_model.dart';
-import 'package:clean_forge/features/$featureName/domain/entities/$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/data/models/${featureName}_model.dart';
+import 'package:${config.packageName}/features/$featureName/domain/entities/$featureName.dart';
 
 void main() {
   const t${className}Model = ${className}Model(
@@ -174,13 +174,13 @@ void main() {
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/core/error/failures.dart';
-import 'package:clean_forge/core/network/network_info.dart';
-import 'package:clean_forge/features/$featureName/data/datasources/local/${featureName}_local_data_source.dart';
-import 'package:clean_forge/features/$featureName/data/datasources/remote/${featureName}_remote_data_source.dart';
-import 'package:clean_forge/features/$featureName/data/models/${featureName}_model.dart';
-import 'package:clean_forge/features/$featureName/data/repositories/${featureName}_repository_impl.dart';
-import 'package:clean_forge/features/$featureName/domain/entities/$featureName.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/network/network_info.dart';
+import 'package:${config.packageName}/features/$featureName/data/datasources/local/${featureName}_local_data_source.dart';
+import 'package:${config.packageName}/features/$featureName/data/datasources/remote/${featureName}_remote_data_source.dart';
+import 'package:${config.packageName}/features/$featureName/data/models/${featureName}_model.dart';
+import 'package:${config.packageName}/features/$featureName/data/repositories/${featureName}_repository_impl.dart';
+import 'package:${config.packageName}/features/$featureName/domain/entities/$featureName.dart';
 
 class MockRemoteDataSource extends Mock implements ${className}RemoteDataSource {}
 
@@ -314,11 +314,11 @@ void main() {
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/core/error/failures.dart';
-import 'package:clean_forge/core/usecases/usecase.dart';
-import 'package:clean_forge/features/$featureName/domain/entities/$featureName.dart';
-import 'package:clean_forge/features/$featureName/domain/repositories/${featureName}_repository.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
+import 'package:${config.packageName}/features/$featureName/domain/entities/$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/domain/repositories/${featureName}_repository.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
 
 class Mock${className}Repository extends Mock implements ${className}Repository {}
 
@@ -371,11 +371,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/core/error/failures.dart';
-import 'package:clean_forge/core/usecases/usecase.dart';
-import 'package:clean_forge/features/$featureName/domain/entities/$featureName.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
-import 'package:clean_forge/features/$featureName/presentation/bloc/${featureName}_bloc.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
+import 'package:${config.packageName}/features/$featureName/domain/entities/$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/presentation/bloc/${featureName}_bloc.dart';
 
 class MockGet$className extends Mock implements Get$className {}
 
@@ -438,11 +438,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/core/error/failures.dart';
-import 'package:clean_forge/core/usecases/usecase.dart';
-import 'package:clean_forge/features/$featureName/domain/entities/$featureName.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
-import 'package:clean_forge/features/$featureName/presentation/cubit/${featureName}_cubit.dart';
+import 'package:${config.packageName}/core/error/failures.dart';
+import 'package:${config.packageName}/core/usecases/usecase.dart';
+import 'package:${config.packageName}/features/$featureName/domain/entities/$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/presentation/cubit/${featureName}_cubit.dart';
 
 class MockGet$className extends Mock implements Get$className {}
 
@@ -504,8 +504,8 @@ void main() {
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
-import 'package:clean_forge/features/$featureName/presentation/providers/${featureName}_provider.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/presentation/providers/${featureName}_provider.dart';
 
 class MockGet$className extends Mock implements Get$className {}
 
@@ -538,8 +538,8 @@ void main() {
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
-import 'package:clean_forge/features/$featureName/presentation/providers/${featureName}_provider.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/presentation/providers/${featureName}_provider.dart';
 
 class MockGet$className extends Mock implements Get$className {}
 
@@ -565,8 +565,8 @@ void main() {
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
-import 'package:clean_forge/features/$featureName/presentation/controllers/${featureName}_controller.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/presentation/controllers/${featureName}_controller.dart';
 
 class MockGet$className extends Mock implements Get$className {}
 
@@ -595,8 +595,8 @@ void main() {
       '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clean_forge/features/$featureName/domain/usecases/get_$featureName.dart';
-import 'package:clean_forge/features/$featureName/presentation/stores/${featureName}_store.dart';
+import 'package:${config.packageName}/features/$featureName/domain/usecases/get_$featureName.dart';
+import 'package:${config.packageName}/features/$featureName/presentation/stores/${featureName}_store.dart';
 
 class MockGet$className extends Mock implements Get$className {}
 
