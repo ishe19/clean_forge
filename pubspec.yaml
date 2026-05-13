@@ -1,6 +1,6 @@
 name: clean_forge
 description: A powerful CLI tool for generating production-ready Clean Architecture features with comprehensive testing, DI, and multiple state management options
-version: 0.0.1
+version: 0.1.0
 repository: https://github.com/ishe19/clean_forge
 homepage: https://github.com/ishe19/clean_forge
 

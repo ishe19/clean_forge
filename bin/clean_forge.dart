@@ -6,7 +6,7 @@ import 'package:clean_forge/src/commands/feature_command.dart';
 import 'package:clean_forge/src/commands/config_command.dart';
 import 'package:clean_forge/src/commands/clean_command.dart';
 
-const version = '0.0.1';
+const version = '0.1.0';
 
 Future<void> main(List<String> args) async {
   final logger = Logger();
