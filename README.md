@@ -449,7 +449,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Author**: Isheanesu Gwangwanyu
 
-**Version**: ![GitHub Release](https://img.shields.io/github/v/release/ishe19/clean_forge) ![pub.dev](https://img.shields.io/pub/v/clean_forge)
+**Version**: ![pub.dev](https://img.shields.io/pub/v/clean_forge)
 
 ---
 
