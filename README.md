@@ -52,7 +52,7 @@ clean_forge --version
 
 You should see:
 ```
-clean_forge version: 0.0.1
+clean_forge version: ![Version](https://img.shields.io/github/v/release/ishe19/clean_forge)
 ```
 
 ### Add to PATH (Optional)
@@ -449,7 +449,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Author**: Isheanesu Gwangwanyu
 
-**Version**: 0.0.1
+**Version**: ![GitHub Release](https://img.shields.io/github/v/release/ishe19/clean_forge) ![pub.dev](https://img.shields.io/pub/v/clean_forge)
 
 ---
 
